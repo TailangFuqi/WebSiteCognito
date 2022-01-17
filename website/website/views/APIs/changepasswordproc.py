@@ -39,16 +39,14 @@ def changepassword(request):
             AccessToken=access_token
         )
 
-        print(aws_result)
-
     except Exception as e:
 
         resultCd = '1'
 
         if e.response["Error"]["Code"] == "NotAuthorizedException":
-            errorMsg = "Old password is not correct"
+            errorMsg = "NotAuthorizedException"
         else:
-            errorMsg = "Error happened in server"
+            errorMsg = "ErrorOnServer"
 
     ret = {
         'resultCd': resultCd,

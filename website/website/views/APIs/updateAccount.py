@@ -60,8 +60,11 @@ def updateAccount(request):
 
     except Exception as e:
         resultCd = '1'
+        errorMsg = "ErrorOnServer"
 
-    ret = {"resultCd": resultCd}
+    ret = {"resultCd": resultCd,
+           "errorMsg": errorMsg
+           }
 
     response = Response()
     response.data = ret

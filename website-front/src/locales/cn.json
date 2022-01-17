@@ -44,7 +44,13 @@
     "UPDATE.PASSWORD.RULE": "新密碼跟舊密碼應該不一樣",
     "COMPLETE.ACTIVATION": "完結激活會員",
     "RESET.PASSWORD.SMS.SENT": "系統已透過SMS將驗證碼傳送至您的手機，請您於輸入SMS中包含的6位數驗證碼",
+    "ACTIVATIONKEY.NOT.CORRECT": "用戶帳號或激活碼錯誤",
+    "ACTIVATIONKEY.EXPIRED": "激活碼失效了",
+    "ACCOUNT.OR.PASSWORD.NOT.CORRECT": "用戶帳號或密码錯誤",
+    "COMPTELE.UPDATE.ACCOUNT": "完結更新帳戶",
     "COMPLETE.RESET.PASSWORD": "完結重置密碼, 用新密碼登入",
     "COMPLETE.UPDATE.PASSWORD": "完結重新密碼",
+    "CURRENT.PASSWORD.NOT.CORRECT": "当前密碼錯誤",
+    "ERROR.ON.SERVER": "障礙發生服務器上",
     "UNEXPECTED.ERROR": "沒預測障礙發生"
 }

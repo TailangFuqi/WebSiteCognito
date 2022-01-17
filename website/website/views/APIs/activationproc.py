@@ -37,13 +37,12 @@ def activation(request):
     except Exception as e:
 
         resultCd = '1'
-        print(e)
         if e.response["Error"]["Code"] == "ExpiredCodeException":
-            errorMsg = "UserId or activation key is not correct"
+            errorMsg = "ExpiredCodeException"
         elif e.response["Error"]["Code"] == "CodeMismatchException":
-            errorMsg = "UserId or activation key is not correct"
+            errorMsg = "CodeMismatchException"
         else:
-            errorMsg = "Error happened in server"
+            errorMsg = "ErrorOnServer"
 
     ret = {"resultCd": resultCd,
            "errorMsg": errorMsg

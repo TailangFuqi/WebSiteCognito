@@ -42,9 +42,9 @@ def login(request):
         resultCd = '1'
 
         if e.response["Error"]["Code"] == "NotAuthorizedException":
-            errorMsg = "Incorrect user name or password"
+            errorMsg = "NotAuthorizedException"
         else:
-            errorMsg = "Error happened in server"
+            errorMsg = "ErrorOnServer"
 
     ret = {"resultCd": resultCd,
            "errorMsg": errorMsg,

@@ -43,8 +43,14 @@
     "FAIL.UPDATE.ACCOUNT": "Failed to update account info",
     "UPDATE.PASSWORD.RULE": "New password should not be same with old password",
     "COMPLETE.ACTIVATION": "Complete activationg account",
+    "ACTIVATIONKEY.NOT.CORRECT": "User-ID or activation key is not correct",
+    "ACTIVATIONKEY.EXPIRED": "Activation key has been expired",
     "RESET.PASSWORD.SMS.SENT": "SMS has been sent to your mobile phone number. Input activation key wrinnten in it and reset your password",
+    "ACCOUNT.OR.PASSWORD.NOT.CORRECT": "User-ID or password is not correct",
+    "COMPTELE.UPDATE.ACCOUNT": "Complete updating account",
     "COMPLETE.RESET.PASSWORD": "Password has been reset, now you can login by new password",
     "COMPLETE.UPDATE.PASSWORD": "Password has been updated",
+    "CURRENT.PASSWORD.NOT.CORRECT": "Old password is not correct",
+    "ERROR.ON.SERVER": "Error happened on server",
     "UNEXPECTED.ERROR": "Unexpected error happened"
 }

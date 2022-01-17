@@ -86,13 +86,12 @@ def signup(request):
         print(aws_result)
 
     except Exception as e:
-        print(e)
 
         resultCd = '1'
         if e.response["Error"]["Code"] == "UsernameExistsException":
-            errorMsg = "User already exists"
+            errorMsg = "UsernameExistsException"
         else:
-            errorMsg = "Error happened in server"
+            errorMsg = "ErrorOnServer"
 
     ret = {"resultCd": resultCd,
            "errorMsg": errorMsg

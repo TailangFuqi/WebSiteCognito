@@ -41,7 +41,6 @@ export default {
     },
     methods: {
         activationSubmit() {
-            "use strict";
 
             let jsonRequest = {
                 userId: this.emailAddress,
@@ -49,7 +48,7 @@ export default {
             };
 
             let url = this.apiServerURLCommon +  "activationproc";
-            let completeActivationMsg = this.$t("COMPLETE.ACTIVATION");
+            
             fetch(url, {
                     method: "POST",
                     credentials: 'include',
@@ -62,11 +61,17 @@ export default {
                 .then(response => {
                     return response.json();
                 })
-                .then(function(jsonData) {
+                .then(jsonData => {
                     if (jsonData.resultCd == '1') {
-                        alert('Activation failed');
+                        if(jsonData.errorMsg == "CodeMismatchException") {
+                            alert(this.$t("ACTIVATIONKEY.NOT.CORRECT"));
+                        } else if (jsonData.errorMsg == "ExpiredCodeException") {
+                            alert(this.$t("ACTIVATIONKEY.EXPIRED"));
+                        } else {
+                            alert(this.errorOnServer);
+                        }
                     } else {
-                        alert(completeActivationMsg);
+                        alert(this.$t("COMPLETE.ACTIVATION"));
                         location.href = '/login';
                     }
                 }).catch(err => {

@@ -76,7 +76,6 @@ export default {
             };
 
             let url = this.apiServerURLCommon + "reregistpasswordproc";
-            let completeResetMsg = this.$t("COMPLETE.RESET.PASSWORD");
 
             fetch(url, {
                     method: "POST",
@@ -90,11 +89,17 @@ export default {
                 .then(response => {
                     return response.json();
                 })
-                .then(function(jsonData) {
+                .then(jsonData => {
                     if (jsonData.resultCd == '1') {
-                        alert(jsonData.errorMsg);
+                        if(jsonData.errorMsg == "CodeMismatchException") {
+                            alert(this.$t("ACTIVATIONKEY.NOT.CORRECT"));
+                        } else if (jsonData.errorMsg == "ExpiredCodeException") {
+                            alert(this.$t("ACTIVATIONKEY.EXPIRED"));
+                        } else {
+                            alert(this.errorOnServer);
+                        }
                     } else {
-                        alert(completeResetMsg);
+                        alert(this.$t("COMPLETE.RESET.PASSWORD"));
                         location.href = '/login'
                     }
                 }).catch(err => {

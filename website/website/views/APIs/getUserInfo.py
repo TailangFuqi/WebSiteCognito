@@ -58,11 +58,11 @@ def getUserInfo(request):
     except Exception as e:
 
         resultCd = '1'
-        errorMsg = "Error happened in server"
+        errorMsg = "ErrorOnServer"
 
     ret = {
         'resultCd': resultCd,
-        'msg': 'Signup',
+        'errorMsg': errorMsg,
         'result': {}
     }
     ret["result"] = resoonseArray

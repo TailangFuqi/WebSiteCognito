@@ -4,7 +4,7 @@
 		<div id="changePassword">
 			<div class="modal-content">
 			<div class="close-button-wrap">
-			<button  @click="$emit('close')">✕</button>
+			<button  @click="closePasswordModal()">✕</button>
 			</div>
             
 				<table class="input-authInfo-table">
@@ -14,7 +14,7 @@
 						</th>
 						<td>
 							<input name="emailAddress" type="text" class="loginID" disabled="disabled"
-                                v-model="this.userId"/>
+                                v-model="this.accountInfo.userId"/>
 						</td>
                     </tr>
 					<tr class="accountInfoLine">
@@ -53,7 +53,7 @@
 				</table>
                 
                 <button class="account-button-large" @click="changePassword()">{{ $t('CHANGE.PASSWORD' )}}</button>
-                <button class="account-button-large-cancel" @click="$emit('close')">{{ $t('CANCEL' )}}</button>
+                <button class="account-button-large-cancel" @click="closePasswordModal()">{{ $t('CANCEL' )}}</button>
 			</div>
 		</div>
 	</div>
@@ -61,15 +61,15 @@
 </template>
 <script>
 import accountCommon from "./accountCommon";
+import passwordModalCommon from "./passwordModalCommon"
 export default {
-    mixins: [accountCommon],
+    mixins: [accountCommon, passwordModalCommon],
     name: 'ChangePasswordModal',
-    props: ['val'],
-    data () {
+   /* data () {
         return {
             userId: this.val
         }
-    },
+    },*/
     methods:  {
                 
         changePassword: function() {
@@ -88,7 +88,6 @@ export default {
             };
 
             let url = this.apiServerURLCommon + "changepasswordproc";
-            let completeUpdPwdMsg = this.$t("COMPLETE.UPDATE.PASSWORD");
 
             fetch(url, {
                     method: "POST",
@@ -102,15 +101,18 @@ export default {
                 .then(response => {
                     return response.json();
                 })
-                .then(function(jsonData) {
+                .then(jsonData => {
                     if (jsonData.resultCd == "0") {
-                        alert(completeUpdPwdMsg);
-
+                        alert(this.$t("COMPLETE.UPDATE.PASSWORD"));
+                        this.closePasswordModal(); 
                     } else {
-                        alert(jsonData.errorMsg);
+                        if(jsonData.errorMsg == "NotAuthorizedException") {
+                            alert(this.$t("COMPLETE.UPDATE.PASSWORD"));
+                        } else {
+                            alert(this.$t("CURRENT.PASSWORD.NOT.CORRECT"));
+                        }
                         return false;
                     }
-
                 }).catch(err => {
                     console.log(err);
                     alert(this.unexpectedError);
@@ -152,11 +154,10 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #22222B;
-    opacity: 0.9;
+    background: rgba(0,0,0,0.7);
+    opacity: 200ms;
     visibility: visible;
-    /* transition: opacity 0.5s, visibility 0.5s; */
-    z-index: 1;
+    z-index: 9999;
 }
 
 .modal-wrapper {
@@ -167,7 +168,7 @@ export default {
     min-width: 300px;
     height: 100%;
     max-height: 300px;
-    background-color: #fff;
+    background: rgba(255, 255, 255);
     display: block;
     position: relative;
     opacity: 1;

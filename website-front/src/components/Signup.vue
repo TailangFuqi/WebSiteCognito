@@ -248,7 +248,6 @@ export default {
             }
 
             let url = this.apiServerURLCommon + "signupproc";
-            let sentSMSMsg = this.$t("ACTIVATE.SMS.SENT");
 
             fetch(url, {
                     method: "POST",
@@ -262,11 +261,16 @@ export default {
                 .then(response => {
                     return response.json();
                 })
-                .then(function(jsonData) {
+                .then(jsonData => {
                     if (jsonData.resultCd == '1') {
-                        alert(jsonData.errorMsg);
+                        if(jsonData.errorMsg == "UsernameExistsException") {
+                            alert(this.$t("ERROR.ACCOUNT.EXISTS"));    
+                        } else {
+                            alert(this.errorOnServer);
+                        }
+                        return false;
                     } else {
-                        alert(sentSMSMsg);
+                        alert(this.$t("ACTIVATE.SMS.SENT"));
                         location.href = '/activation'
                     }
                 }).catch(err => {

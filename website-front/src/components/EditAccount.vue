@@ -42,10 +42,8 @@
                             <input name="lastname" type="text" class="account-text-input" v-model="accountInfo.family_name" />
                             <input name="firstname" type="text" class="account-text-input" v-model="accountInfo.given_name" />
                             <br>
-                            <!--
-                            <div class="validation-error" v-text="ValidErrorMessage.family_name"><br></div>
+                            <div class="validation-error" v-text="ValidErrorMessage.family_name"></div>
                             <div class="validation-error" v-text="ValidErrorMessage.given_name"></div>
-                            -->
                         </td>
                     </tr>
                     <tr class="accountInfoLine">
@@ -120,14 +118,15 @@
                 <button  @click="submitUpdate" class="account-button-large">{{ $t( 'UPDATE')}}</button>
             </div>
         </div>
-<ChangePasswordModal  :val="this.accountInfo.userId" v-show="showPasswordModal" @close="closePasswordModal"></ChangePasswordModal>
+<ChangePasswordModal v-show="showPasswordModal"></ChangePasswordModal>
 </template>
 <script>
 import accountCommon from "./accountCommon";
+import passwordModalCommon from "./passwordModalCommon";
 import ChangePasswordModal from "./ChangePasswordModal.vue";
 
 export default  {
-    mixins: [accountCommon],
+    mixins: [accountCommon,passwordModalCommon],
     components: {
         ChangePasswordModal
     },
@@ -167,7 +166,7 @@ export default  {
 
                     this.hideLogoutButtonYn = false;
                 } else {
-                    alert('Error was returned');
+                    alert(this.errorOnServer);
                     location.href = '/login';
                 }
             }).catch(err => {
@@ -179,9 +178,7 @@ export default  {
     },
     methods: {
         submitUpdate: function() {
-            alert("Update your account");
-
-            var accountValidInfo = [];
+            let accountValidInfo = [];
 
             accountValidInfo.push({
                 key: 'emailAddress',
@@ -228,7 +225,7 @@ export default  {
                 return false;
             }
 
-            var jsonRequest = {
+            let jsonRequest = {
                 emailAddress: this.accountInfo.emailAddress,
                 given_name: this.accountInfo.given_name,
                 family_name: this.accountInfo.family_name,
@@ -239,8 +236,8 @@ export default  {
                 address: this.accountInfo.address
             };
 
-            var url = this.apiServerURLCommon + "updateaccount";
-
+            let url = this.apiServerURLCommon + "updateaccount";
+ 
             fetch(url, {
                     method: "POST",
                     credentials: 'include',
@@ -253,27 +250,17 @@ export default  {
                 .then(response => {
                     return response.json();
                 })
-                .then(function(jsonData) {
+                .then(jsonData => {
                     if (jsonData.resultCd == "0") {
-                        alert('Succeed updating');
+                        alert(this.$t("COMPTELE.UPDATE.ACCOUNT"));
                     } else {
-                        alert('Failed to update account info');
+                        alert(this.$t("FAIL.UPDATE.ACCOUNT"));
                     }
                 }).catch(err => {
                     console.log(err);
                     alert(this.unexpectedError);
                 });
-        },
-        openPasswordModal: function() {
-            this.showPasswordModal = true;
-            this.passwordValidErrorMessage.oldPassword = "";
-            this.passwordValidErrorMessage.password = "";
-            this.passwordValidErrorMessage.passwordConfirm = "";
-        },
-        closePasswordModal: function() {
-            this.clearPasswordInput();
-            this.showPasswordModal = false;
-        }
+        } 
     }
 }
 

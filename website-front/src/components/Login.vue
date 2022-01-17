@@ -59,7 +59,7 @@ data() {
             };
 
             let url = this.apiServerURLCommon + "loginproc";
-
+            
             fetch(url, {
                     method: "POST",
                     credentials: 'include',
@@ -72,7 +72,12 @@ data() {
                     return response.json();
                 }).then((jsonData) =>  {
                     if (jsonData.resultCd == '1') {
-                        this.loginError = jsonData.errorMsg;
+                        if(jsonData.errorMsg == "NotAuthorizedException") {
+                            this.loginError = this.$t("ACCOUNT.OR.PASSWORD.NOT.CORRECT");
+                        } else {
+                            this.loginError = this.errorOnServer;
+                        }
+                        
                     } else {
                         location.href = '/editaccount';
                     }

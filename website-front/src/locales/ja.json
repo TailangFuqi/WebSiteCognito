@@ -43,8 +43,14 @@
     "FAIL.UPDATE.ACCOUNT": "アカウントの更新に失敗しました",
     "UPDATE.PASSWORD.RULE": "新しいパスワードに現在のパスワードと同じ値を設定できません",
     "COMPLETE.ACTIVATION": "アカウントの有効化が完了しました",
+    "ACTIVATIONKEY.NOT.CORRECT": "ユーザーIDまたは確認コードが間違っています",
+    "ACTIVATIONKEY.EXPIRED": "確認コードの有効期限が切れています",
     "RESET.PASSWORD.SMS.SENT": "SMSを携帯電話番号宛に送信しました。SMSに記載された6桁の認証キーを入力してパスワードをリセットしてください",
+    "COMPTELE.UPDATE.ACCOUNT": "アカウントの更新が完了しました",
+    "ACCOUNT.OR.PASSWORD.NOT.CORRECT": "ユーザーIDまたはパスワードが間違っています",
     "COMPLETE.RESET.PASSWORD": "パスワードがリセットされました。新しいパスワードでログインしてください",
-    "-f PDATE.PASSWORD": "パスワードが更新されました",
-    "UNEXPECTED.ERROR": "予期せぬエラーが発生しました"
+    "COMPLETE.UPDATE.PASSWORD": "パスワードが更新されました",
+    "CURRENT.PASSWORD.NOT.CORRECT": "現在のパスワードが間違っています",
+    "ERROR.ON.SERVER": "サーバでエラーが発生しました",
+    "UNEXPECTED.ERROR": "予期せぬエラーが発生しました",
 }

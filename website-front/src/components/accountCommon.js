@@ -37,6 +37,7 @@ export default {
       passwordConfirm: "",
     },
     unexpectedError: "",
+    serverOnError: "",
   },
   created() {
     let url = this.apiServerURLCommon + "getcsrftoken";
@@ -49,10 +50,11 @@ export default {
     }).catch((err) => {
       alert("Fail" + err);
     });
+    this.errorOnServer = this.$t("ERROR.ON.SERVER");
     this.unexpectedError = this.$t("UNEXPECTED.ERROR");
   },
   methods: {
-    getAddressByZip: function() {
+    getAddressByZip: function () {
       var url = new URL("https://api.zipaddress.net/");
       var param = {
         zipcode: this.accountInfo.zipcode,
@@ -76,7 +78,7 @@ export default {
           alert("Fail to call API" + err);
         });
     },
-    accountValidationCheck: function(accountValidInfo) {
+    accountValidationCheck: function (accountValidInfo) {
       this.ValidErrorMessage.emailAddress = "";
       this.ValidErrorMessage.userId = "";
       this.ValidErrorMessage.mobilePhoneNo = "";
@@ -91,7 +93,8 @@ export default {
       let validCheck = [
         {
           key: "emailAddress",
-          format: /^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-]+)+$/,
+          format:
+            /^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-]+)+$/,
           len: 100,
           mandatory: true,
           keyName: "EMAIL.ADDRESS",
@@ -206,7 +209,7 @@ export default {
 
       return result;
     },
-    passwordValidCheck: function(passwordInfo) {
+    passwordValidCheck: function (passwordInfo) {
       let result = true;
       this.passwordValidErrorMessage.oldPassword = "";
       this.passwordValidErrorMessage.password = "";
@@ -268,20 +271,19 @@ export default {
       }
 
       if (passwordInfo.password != passwordInfo.passwordConfirm) {
-        this.passwordValidErrorMessage.passwordConfirm = this.$t(
-          "PASSWORD.NOTEQUAL"
-        );
+        this.passwordValidErrorMessage.passwordConfirm =
+          this.$t("PASSWORD.NOTEQUAL");
         result = false;
       }
 
       return result;
     },
-    clearPasswordInput: function() {
+    clearPasswordInput: function () {
       this.passwordInfo.oldPassword = "";
       this.passwordInfo.password = "";
       this.passwordInfo.passwordConfirm = "";
     },
-    submitLogout: function() {
+    submitLogout: function () {
       var url = this.apiServerURLCommon + "logoutproc";
 
       fetch(url, {
@@ -292,11 +294,19 @@ export default {
           "X-CSRFToken": this.$cookies.get("csrftoken"),
         },
       })
-        .then(function() {
-          location.href = "/login";
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => {
+          if (jsonData.resultCd == "0") {
+            location.href = "/login";
+          } else {
+            alert(this.errorOnServer);
+          }
         })
         .catch((err) => {
-          alert("Fail" + err);
+          console.log(err);
+          alert(this.unexpectedError);
           location.href = "/login";
         });
     },

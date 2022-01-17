@@ -39,8 +39,7 @@ export default {
             };
 
             let url = this.apiServerURLCommon + "resetpasswordproc";
-            let sentSMSMsg = this.$t("RESET.PASSWORD.SMS.SENT");
-
+            
             fetch(url, {
                     method: "POST",
                     credentials: 'include',
@@ -53,11 +52,11 @@ export default {
                 .then(response => {
                     return response.json();
                 })
-                .then(function(jsonData) {
+                .then(jsonData => {
                     if (jsonData.resultCd == '1') {
-                        alert(jsonData.errorMsg);
+                        alert(this.errorOnServer);
                     } else {                     
-                        alert(sentSMSMsg);
+                        alert(this.$t("RESET.PASSWORD.SMS.SENT"));
                         location.href = '/reregistpassword';
                     }
                 }).catch(err => {

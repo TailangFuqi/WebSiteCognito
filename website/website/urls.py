@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from website.views.APIs import updateAccount, loginproc, getUserInfo, signupproc, activationproc, resetpasswordproc, reregistpasswordproc, logoutproc, changepasswordproc, csrftoken, apiTest
+from website.views.APIs import updateAccount, loginproc, getUserInfo, signupproc, activationproc, resetpasswordproc, reregistpasswordproc, logoutproc, changepasswordproc, csrftoken
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
